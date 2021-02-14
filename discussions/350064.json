@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "815565",
+    "ThreadId": "350064",
+    "Html": "\r\n<p>Bonjour,</p>\r\n<p>J'emploie votre dll mais je pose la question de l'integration de fonctionnalit&eacute;s purement Entity Framework Code First telles qu'elles sont present&eacute;s par des auteurs comme Julia Lerman, etc..</p>\r\n<p>Je pense &agrave; la methode Find sur Dbset qui a un comportement extrement particulier propre &agrave; elle (recherche de l'objet in memory, etc...)</p>\r\n<p>De m&ecirc;me qu'&agrave; la propri&eacute;t&eacute; .Local de DbSet. Ces fonctionnalit&eacute;s me semble sauf erreur de ma part inaccessible par votre repository.</p>\r\n<p>Merci</p>\r\n",
+    "PostedDate": "2012-03-26T06:04:49.597-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "822402",
+    "ThreadId": "350064",
+    "Html": "<p>Bonjour,</p>\n<p>vraiment d&eacute;sol&eacute; de ne pas avoir r&eacute;pondu au&nbsp;paravent, le syst&egrave;me de notification de Codeplex &agrave; peut-&ecirc;tre&nbsp;eu un&nbsp;rat&eacute;.</p>\n<p>Effectivement je confirme qu'il vous sera difficile&nbsp;d&rsquo;acc&eacute;der&nbsp;&agrave; ces&nbsp;propri&eacute;t&eacute;s&nbsp;et m&eacute;thodes &agrave; la classe DbSet; Et cela est voulu car le pattern Repository &agrave; pour but d'abstraire le medium de stockage sous-jacent.</p>\n<p>Pour plus d'informations sur le sujet je vous conseille les lectures suivantes :&nbsp;</p>\n<ul>\n<li><a title=\"implementing-the-repository-and-unit-of-work-patterns\" href=\"http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application\">http://www.asp.net/mvc/tutorials/getting-started-with-ef-using-mvc/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application</a> </li>\n<li><a title=\"Martin Fowler\" href=\"http://martinfowler.com/eaaCatalog/repository.html\">http://martinfowler.com/eaaCatalog/repository.html</a> </li>\n</ul>\n<p>&nbsp;J'esp&egrave;re que cela vous satisfait.</p>",
+    "PostedDate": "2012-04-11T07:25:37.497-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

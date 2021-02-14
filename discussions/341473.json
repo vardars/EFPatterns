@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "795356",
+    "ThreadId": "341473",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>I'm using EntityFramework.Patterns in my application and I need to implement soft deletion. &nbsp;Is it possible to implement it using ArchivableRepository ?</p>\r\n<p>If yes can you describe how ?</p>\r\n<p>Do you have any documentation for ArchivableRepository?</p>\r\n<p>&nbsp;</p>\r\n<p>Thanks mrio</p>\r\n",
+    "PostedDate": "2012-02-22T08:49:34.113-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "798317",
+    "ThreadId": "341473",
+    "Html": "<p>Hi Mrio,</p>\r\n<p>yes it's very easy to implement soft deletion with EntityFramework.Patterns.</p>\r\n<p>Your entities must implement the <a title=\"IArchivable interface\" href=\"http://efpatterns.codeplex.com/wikipage?title=IArchivable%20interface&amp;referringTitle=Pattern%20%3a%20Archivable%20entity\">IArchivable interface</a> and then you should use the ArchivableRepository.</p>\r\n<p>Note that if your using EF code first, instead of implementing the IArchivable interface you can decorate your entities with the ArchivableAttribute like this :</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre>    [Archivable]\r\n    <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">class</span> WorkBench\r\n    {\r\n        <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">int</span> Id { <span style=\"color: blue;\">get</span>; <span style=\"color: blue;\">set</span>; }\r\n        <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">string</span> Name { <span style=\"color: blue;\">get</span>; <span style=\"color: blue;\">set</span>; }\r\n    }<br /><br /></pre>\r\n</div>\r\n<p>And the post compilation task will implement the IArchivable interface automatically for you.</p>\r\n<p>Once IArchivable interface is implemented, wrap your Repository around an ArchivableRepository like that :</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre>            <span style=\"color: blue;\">using</span> (EfContext ctx = <span style=\"color: blue;\">new</span> EfContext())\r\n            {\r\n                DbContextAdapter adpt = <span style=\"color: blue;\">new</span> DbContextAdapter(ctx);\r\n                IRepository&lt;WorkBench&gt; repo =\r\n                    <span style=\"color: blue;\">new</span> ArchivableRepository&lt;WorkBench&gt;(\r\n                        <span style=\"color: blue;\">new</span> Repository&lt;WorkBench&gt;(adpt)\r\n                        );\r\n\r\n                IEnumerable&lt;WorkBench&gt; a = repo.GetAll(); <br /><pre style=\"font-family: Consolas; font-size: 13px; color: black; background: none repeat scroll 0% 0% white;\">               repo.Delete(a.First());\r\n</pre>\r\n}</pre>\r\n</div>\r\n<p>The delete method will not really delete the row in your db, but instead will set the properties Deleted and DeletedBy (IArchivable interface).</p>\r\n<p>Subsequent queries will not return elements whose Deleted property is not null.</p>\r\n<p>Regarding the documentation, I'll try to add a section on this subject.</p>\r\n<p>I hope this answer will help you to achieve your goal.</p>",
+    "PostedDate": "2012-02-23T14:12:53.963-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "799131",
+    "ThreadId": "341473",
+    "Html": "<p>Than you a lot, it really helped me.</p>\n<p>I have one more question.</p>\n<p>Is it possible to call custom select statement using linq through ArchivableRepository ?</p>\n<p>I'm working on tables with big amount of data and sometimes I need to count row. The only way I know (using ArchivableRepository) &nbsp;is to call Find(....) method and then count objects in&nbsp;IEnumerable&lt;T&gt; but this approach&nbsp; require to load all data to memory  and I can't afford for this.</p>\n<p>&nbsp;I mean sth like that : (this is not correct because deleted rows will be also included)</p>\n<p>repo = new ArchivableRepository&lt;T&gt;(....);<br />var result = from u in repo.AsQueryable()<br /> select u;</p>\n<p>&nbsp;</p>\n<p>Thank you for your time.</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+    "PostedDate": "2012-02-24T00:55:00.403-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "799628",
+    "ThreadId": "341473",
+    "Html": "<p>mrio,</p>\n<p>If you want to count rows directly on your db server and not in memory you should use something like this :</p>\n<div style=\"color: black; background-color: white;\">\n<pre>repo.AsQueryable().Count()\n</pre>\n</div>\n<p>Unfortunately archived rows are not filtered out when using AsQueryable; this will be fix in the future version.</p>\n<p>A workaround is to manually filter those elements :</p>\n<div style=\"color: black; background-color: white;\">\n<pre>repo.AsQueryable().Count(wb =&gt; wb.Deleted == <span style=\"color: blue;\">null</span>)\n</pre>\n</div>\n<p>The resulting SQL will look like this :</p>\n<div style=\"color: black; background-color: white;\">\n<pre><span style=\"color: blue;\">SELECT</span> \n[GroupBy1].[A1] <span style=\"color: blue;\">AS</span> [C1]\n<span style=\"color: blue;\">FROM</span> ( <span style=\"color: blue;\">SELECT</span> \n\t<span style=\"color: magenta;\">COUNT</span>(1) <span style=\"color: blue;\">AS</span> [A1]\n\t<span style=\"color: blue;\">FROM</span> [dbo].[WorkBenches] <span style=\"color: blue;\">AS</span> [Extent1]\n\t<span style=\"color: blue;\">WHERE</span> [Extent1].[Deleted] <span style=\"color: blue;\">IS</span> <span style=\"color: blue;\">NULL</span>\n)  <span style=\"color: blue;\">AS</span> [GroupBy1]\n</pre>\n</div>\n<p>Is this acceptable?</p>",
+    "PostedDate": "2012-02-24T13:47:04.25-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "800255",
+    "ThreadId": "341473",
+    "Html": "<p>Thanks you&nbsp;Fab_Michellonet. Yes it is acceptable. I known about it but I thought that there is another way.</p>\r\n<p>In my code I override the method AsQueryable() to base.AsQueryable().where(....)</p>\r\n<p>&nbsp;</p>\r\n<p>Thank you for your help</p>",
+    "PostedDate": "2012-02-26T06:07:39.98-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

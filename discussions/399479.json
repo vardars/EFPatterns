@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "927054",
+    "ThreadId": "399479",
+    "Html": "\r\n<p>Hi, can Entity Framework be upgraded to the latest version?</p>\r\n<p>I had to modify the source and then reference that project to allow EntityFramework.Patterns to work with EF5.</p>\r\n<p>Thanks,</p>\r\n<p>Richard</p>\r\n",
+    "PostedDate": "2012-10-15T17:53:00.613-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "944266",
+    "ThreadId": "399479",
+    "Html": "\r\n<p>This would be convenient :)</p>\r\n",
+    "PostedDate": "2012-11-19T15:12:27.03-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1094536",
+    "ThreadId": "399479",
+    "Html": "You don't have to modify this library to work with EF5. There is only need to add assembly redirection in *.config file<br />\n<pre><code>&lt;runtime&gt;\n&lt;assemblyBinding xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot;&gt;\n  &lt;dependentAssembly&gt;\n    &lt;assemblyIdentity name=&quot;EntityFramework&quot; publicKeyToken=&quot;b77a5c561934e089&quot; culture=&quot;neutral&quot; /&gt;\n    &lt;bindingRedirect oldVersion=&quot;0.0.0.0-5.0.0.0&quot; newVersion=&quot;5.0.0.0&quot; /&gt;\n  &lt;/dependentAssembly&gt;\n   &lt;/assemblyBinding&gt;\n  &lt;/runtime&gt;</code></pre>\n\n",
+    "PostedDate": "2013-09-19T09:23:01.78-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

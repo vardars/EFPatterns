@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1094553",
+    "ThreadId": "457453",
+    "Html": "How suppose to be handled errors on saving entities through your library. I can't find any examples. Or threads about that.\r<br />\nAs for my understanding Repositories should only modified state of entities or query them from data base if there are not yet available from cache. For saving changes should be used Commit from IUnitOfWork. Sadly there is not any method in this interface for rollback of changes in case saving of them fails. If repositories are reused between methods (like in my case), first error will throw them of balance and leave in unpredictable state.\r<br />\n<br />\nFor example:<br />\n<pre><code>public class Model\n{\n   IRepository&lt;Person&gt; repository;\n   public Model(IRepository&lt;Person&gt; repository)\n   {\n       this.repository = repository;\n   }\n   public SavePerson(Person newPerson)\n   {\n       using(var uow = UOWFactory.Get())\n       {\n           repository.Insert(newPerson);\n           //this will fail because newPerson don't have Name and Name is NOT NULL in DB\n           uow.Commit()\n           //from now on any subsequent calls to DBContext.SaveChanges fails, because\n           //repository instance locks DBContext changed entities collection\n       }\n   }\n}</code></pre>\n\n",
+    "PostedDate": "2013-09-19T09:49:50.5-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

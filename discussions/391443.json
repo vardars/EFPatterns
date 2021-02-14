@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "899004",
+    "ThreadId": "391443",
+    "Html": "\r\n<p>What is the best way to perform existence check and counting items with IRepository methods? So far for existence check &nbsp;I couldn't come with something better than&nbsp;</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">bool</span> Exists(IRepository&lt;Entity&gt; entityRepo, <span style=\"color:blue\">int</span> id)\n{\n  <span style=\"color:blue\">try</span> {\n    entityRepo.First(entity =&gt; entity.ID == id);\n    <span style=\"color:blue\">return</span> <span style=\"color:blue\">true</span>;\n  }\n  <span style=\"color:blue\">catch</span> {\n    <span style=\"color:blue\">return</span> <span style=\"color:blue\">false</span>;\n  }</pre>\r\n</div>\r\n<p>But obviously this is ugly at the very least.</p>\r\n<p>Please understand me right: I tried Find().Count() and Find().Any(), but they seem to generate full-fledge SELECT queries and run Count() and Any() on their results, not the optimal SELECT COUNT() and SELECT TOP 1.</p>\r\n",
+    "PostedDate": "2012-08-13T23:07:24.247-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "903211",
+    "ThreadId": "391443",
+    "Html": "\r\n<p>Hello pechkin,</p>\r\n<p>sorry for the long delay, I'm just back from vacation (without any decent Internet connection)...</p>\r\n<p>Now on your problem, what you can do to approximate a Select Count is :&nbsp;</p>\r\n<pre><span style=\"color:blue\">int</span> res = entityRepo.AsQueryable().Count(w =&gt; w.Id == 100);</pre>\r\n<p>which will be translated in</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">SELECT</span> \n[GroupBy1].[A1] <span style=\"color:blue\">AS</span> [C1]\n<span style=\"color:blue\">FROM</span> ( <span style=\"color:blue\">SELECT</span> \n\t<span style=\"color:magenta\">COUNT</span>(1) <span style=\"color:blue\">AS</span> [A1]\n\t<span style=\"color:blue\">FROM</span> [dbo].[WorkBenches] <span style=\"color:blue\">AS</span> [Extent1]\n\t<span style=\"color:blue\">WHERE</span> 100 = [Extent1].[Id]\n)  <span style=\"color:blue\">AS</span> [GroupBy1] \n</pre>\r\n</div>\r\n<p>Please note that in most cases, the Find().Any() construct is also a good solution</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">bool</span> bResult = entityRepo.Find(w =&gt; w.Id == 100).Any();\n</pre>\r\n</div>\r\n<p>resulting in :</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">SELECT</span> \n[Extent1].[Id] <span style=\"color:blue\">AS</span> [Id], \n[Extent1].[Name] <span style=\"color:blue\">AS</span> [Name], \n[Extent1].[CreatedBy] <span style=\"color:blue\">AS</span> [CreatedBy], \n[Extent1].[Created] <span style=\"color:blue\">AS</span> [Created], \n[Extent1].[UpdatedBy] <span style=\"color:blue\">AS</span> [UpdatedBy], \n[Extent1].[Updated] <span style=\"color:blue\">AS</span> [Updated], \n[Extent1].[DeletedBy] <span style=\"color:blue\">AS</span> [DeletedBy], \n[Extent1].[Deleted] <span style=\"color:blue\">AS</span> [Deleted]\n<span style=\"color:blue\">FROM</span> [dbo].[WorkBenches] <span style=\"color:blue\">AS</span> [Extent1]\n<span style=\"color:blue\">WHERE</span> (100 = [Extent1].[Id])\n</pre>\r\n</div>\r\n<p>returning at most 1 item if the Id column is the primary key. Then Any() works on the collection (one item max) in memory.</p>\r\n<p>Hope this helps.</p>\r\n",
+    "PostedDate": "2012-08-23T14:00:08.46-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

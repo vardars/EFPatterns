@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "830145",
+    "ThreadId": "354010",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>I've been come to a stumbling block. I'm aware repository design give us an abstracted to access the database.</p>\r\n<p>I have a few stored procedures in the database how do I go about accessing them through the repository, or would I need to resorting to access my ORM (EF) directly. I've tried searching the internet but there isn't much information around on this.</p>\r\n<p>Thanks.</p>\r\n",
+    "PostedDate": "2012-04-30T05:21:32.257-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "831891",
+    "ThreadId": "354010",
+    "Html": "<p>Hello Madness2K4,</p>\n<p>the solution is to use the <a href=\"http://msdn.microsoft.com/en-us/library/gg696545%28v=vs.103%29\"> SqlQuery&lt;T&gt;</a> method accessible from your <a href=\"http://msdn.microsoft.com/en-us/library/system.data.entity.dbcontext.database%28v=vs.103%29\"> DbContext.Database</a> object.</p>\n<p>Here is an example of a custom Repository that use stored procedure :</p>\n<p>&nbsp;</p>\n<div style=\"color: black; background-color: white;\">\n<pre><span style=\"color: blue;\">using</span> System.Collections.Generic;\n<span style=\"color: blue;\">using</span> System.Data.Entity;\n<span style=\"color: blue;\">using</span> EntityFramework.Patterns;\n\n<span style=\"color: blue;\">namespace</span> efPatternsWorkbench\n{\n    <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">class</span> ProcStockRepository : Repository&lt;WorkBench&gt;\n    {\n        <span style=\"color: blue;\">private</span> <span style=\"color: blue;\">readonly</span> DbContext _context;\n\n        <span style=\"color: blue;\">public</span> ProcStockRepository(IObjectSetFactory objectSetFactory, DbContext context): <span style=\"color: blue;\">base</span>(objectSetFactory)\n        {\n            _context = context;\n        }\n\n        <span style=\"color: blue;\">public</span>  IEnumerable&lt;WorkBench&gt; LoadViaProcStock()\n        {\n            <span style=\"color: green;\">//IEnumerable&lt;WorkBench&gt; res = _context.Database.SqlQuery&lt;WorkBench&gt;(\"SELECT * FROM WorkBenches\");</span>\n            IEnumerable&lt;WorkBench&gt; res = _context.Database.SqlQuery&lt;WorkBench&gt;(<span style=\"color: #a31515;\">\"EXEC GetWorkbenches\"</span>);\n\n            <span style=\"color: blue;\">return</span> res;\n        }\n\n    }\n}\n\n</pre>\n</div>\n<p>I hope this helps.</p>",
+    "PostedDate": "2012-05-03T14:01:21.357-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "914819",
+    "ThreadId": "396143",
+    "Html": "\r\n<p>I'm trying out your caching repository, and I've come into an issue with using it across multiple web requests.</p>\r\n<p>The problem is that the query results were cached on my first web request, and it appears that the ObjectContext was cached with them. &nbsp;And on my second web request, I am dealing with a new ObjectContext, so none of the entities from the cache are &quot;auto\r\n filling&quot; into the entity relationships. &nbsp;So, I try to attach them manually, and&nbsp;I get an error about an entity not being able to be attached to two ObjectContext change trackers.</p>\r\n<p>It seems to me that maybe this library isn't really made to work with a web project. &nbsp;I say this because the ObjectContext is getting cached, too. &nbsp;And caching an ObjectContext at the AppDomain level is very bad in a web site, as it will grow huge\r\n in size.</p>\r\n<p>What are you thoughts/suggestions? &nbsp;I want to cache my queries. &nbsp;Should I use your library? &nbsp;Is there another I should try?</p>\r\n",
+    "PostedDate": "2012-09-19T13:42:14.917-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "914849",
+    "ThreadId": "396143",
+    "Html": "<p>Hi joshmouch,</p>\r\n<p>I've primarily designed this library with Web usage in mind. I also use it at work, and 90% of time in web projects (webforms or mvc)</p>\r\n<p>Now on your problem, can you provide us some sample code to reproduce?</p>\r\n<p>As you can see in the <a href=\"http://efpatterns.codeplex.com/SourceControl/changeset/view/7f1a9beddf25#Main%2fEntityFramework.Patterns%2fCaching%2fMemoryCacheProvider.cs\">MemoryCacheProvide</a> in the Add method, we call ToList() on the IEnumerable query before storing it in the cache; Therefore, the ObjectContext should not be pulled in the cache too.</p>\r\n<p>Anyway, cache features are quite new so you might have found a bug;</p>\r\n<p>Once again please could you provide some simple code to reproduce the behavior you've experimented.</p>",
+    "PostedDate": "2012-09-19T14:22:15.18-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "914874",
+    "ThreadId": "396143",
+    "Html": "\r\n<p>I think what you say about ToList() excluding a reference to the ObjectContext might be when you&rsquo;re using POCO entities. Any entity with IEntityWithChangeTracker will maintain a reference.</p>\r\n<p>Here is some ASP.Net WebForms psuedocode to show you what I mean. On the first page load, this should work, but on the second page load, you&rsquo;ll get an exception.</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">var</span> objectContext = �;<br>\r\n<span style=\"color:green\">// Create CacheableRepository using the ObjectContext above. </span>\r\n<span style=\"color:green\">// NOTE: Based on how your API is set up, you may have to actually create a DbContext and then access its IObjectContextAdapter.ObjectContext property.</span>\r\n<span style=\"color:blue\">var</span> firstEntityRepository = <span style=\"color:blue\">new</span> CacheableRepository(�);\r\n<span style=\"color:blue\">var</span> loadedFirstEntity = firstEntityRepository.First(�);<br>\r\n<span style=\"color:green\">// NOTE: The following will be false because the related property has not been loaded.</span>\r\n<span style=\"color:green\">// loadedFirstEntity.SecondEntityReference.IsLoaded</span>\r\n<span style=\"color:blue\">var</span> secondEntityRepository = <span style=\"color:blue\">new</span> CacheableRepository(�);\r\n<span style=\"color:blue\">var</span> loadedSecondEntity = secondEntityRepository.First(�{some query that <span style=\"color:blue\">is</span> equivalent to firstEntityRepository.SecondEntity}�);<br>\r\n<span style=\"color:green\">// NOTE: The following *should* be *true* because the related property has been loaded.</span>\r\n<span style=\"color:green\">// HOWEVER, it�s not true on the second pass because the ObjectContext created on the first pass is different than the ObjectContext from the second pass.</span>\r\nif (!loadedFirstEntity.SecondEntityReference.IsLoaded) {\r\n<span style=\"color:blue\">\tthrow</span> <span style=\"color:blue\">new</span> Exception(�Something�s wrong!�);<br>\r\n<span style=\"color:green\">\t// As an extra measure, this will also throw an exception about loadedSecondEntity already existing on a different ObjectContext.</span>\r\n\tloadedFirstEntity.SecondEntityReference.Attach(loadedSecondEntity);\r\n}\r\n\r\n</pre>\r\n</div>\r\n",
+    "PostedDate": "2012-09-19T15:52:34.607-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "916394",
+    "ThreadId": "396143",
+    "Html": "\r\n<p>Joshmouch,</p>\r\n<p>here is how I've reproduced what you describing in a MVC web site :</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:green\">//</span>\n        <span style=\"color:green\">// GET: /Product/</span>\n        <span style=\"color:blue\">public</span> ViewResult Index()\n        {\n            DbContextAdapter adpt = <span style=\"color:blue\">new</span> DbContextAdapter(_ctx);\n            IUnitOfWork uof = <span style=\"color:blue\">new</span> UnitOfWork(adpt);\n\n            IRepository&lt;Product&gt; repo =\n                <span style=\"color:blue\">new</span> CacheableRepository&lt;Product&gt;(\n                    <span style=\"color:blue\">new</span> Repository&lt;Product&gt;(adpt)\n                    );\n\n            IEnumerable&lt;Product&gt; p = repo.GetAll();\n\n\n            IRepository&lt;ProductCategory&gt; repo2 =\n                <span style=\"color:blue\">new</span> CacheableRepository&lt;ProductCategory&gt;(\n                    <span style=\"color:blue\">new</span> Repository&lt;ProductCategory&gt;(adpt)\n                    );\n\n            ProductCategory pc2 = repo2.First(productCategory =&gt; productCategory.Id &gt; 0);\n\n            _ctx.Categories.Attach(pc2);\n\n            <span style=\"color:blue\">return</span> View(p);\n        }\n</pre>\r\n</div>\r\n<p>I didn't notice this behavior before, and my unit tests didn't show it either.</p>\r\n<p>As a workaround (while i correct the lib) you might want to use the extension method AsNoTracking() like this :</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>ProductCategory pc2 = repo2.AsQueryable().AsNoTracking().First(productCategory =&gt; productCategory.Id &gt; 0);</pre>\r\n</div>\r\n<p>I hope this can help you.</p>\r\n",
+    "PostedDate": "2012-09-23T14:43:49.573-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

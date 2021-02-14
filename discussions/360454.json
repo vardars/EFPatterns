@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "852063",
+    "ThreadId": "360454",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>I have been going through this pattern and it is indeed some nice work.</p>\r\n<p>I am very new to entity framework and I have the following question;</p>\r\n<p>Using this pattern, how will I be able to delete parent and child records if cascade delete is set to false in the model. For example if in my model I have Parent Table A and Child table A, Child table C, how would i go about deleting child entities if I\r\n delete the parent entity.</p>\r\n<p>I am using database first model for a asp.net webform application</p>\r\n<p>Thanks</p>\r\n",
+    "PostedDate": "2012-06-21T04:39:57.57-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "853435",
+    "ThreadId": "360454",
+    "Html": "<p>Hi <span class=\"UserProfileLink\">mkamransari,</span></p>\r\n<p><br />i guess there won't be any simple solution, as you don't want to use the common way (cascade delete).</p>\r\n<p>Anyway, I'll try to implement an example tomorrow.</p>",
+    "PostedDate": "2012-06-25T15:14:53.827-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "853462",
+    "ThreadId": "360454",
+    "Html": "<p>Hi Fab,</p>\r\n<p>Thanks. I have more question to add. I am using entity framework in web forms. What is the recommended way of dealing with child entities with unit of work. Lets say, I have a customer entity and would like to update the Address &amp; Other Details (two separate tables). Should I fetch the address object and other details object using individual repositories i.e. AddressRepository &amp; OtherDetailsRepository and update the object and finally do a commit?</p>\r\n<p>&nbsp;</p>\r\n<p>Regards</p>",
+    "PostedDate": "2012-06-25T16:23:03.453-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

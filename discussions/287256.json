@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "730056",
+    "ThreadId": "287256",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>why there isn't any GetByID method in your code?</p>\r\n<p>I think Single() is not a solution because it will locate the whole data set into the memory and only after this it will filter my data.&nbsp;</p>\r\n",
+    "PostedDate": "2012-01-24T10:21:39.963-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "730202",
+    "ThreadId": "287256",
+    "Html": "<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">Hello</span> <span class=\"hps\"> QuadroPlay</span><span>,</span></span></p>\n<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">First of all</span> <span class=\"hps\"> thank you for using</span> <span class=\"hps\">EntityFramework.Patterns</span><span>.</span><br /> </span></p>\n<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">Regarding the lack of</span> <span class=\"hps\">a</span> <span class=\"hps\">getById</span><span class=\"hps\">()</span><span> </span></span><span id=\"result_box\" lang=\"en\"><span class=\"hps\">method</span></span><span id=\"result_box\" lang=\"en\"><span>, in fact </span><span class=\"hps\">search</span>ing with the <span class=\"hps\">identifier is</span> <span class=\"hps\">a special case of</span> <span class=\"hps alt-edited\">a generic search pattern that can be achieved with </span><span class=\"hps\">the</span> <span class=\"hps\">Find() method</span><span>.</span><br /> <br /> <span class=\"hps\">Let's start by</span> <span class=\"hps\">using</span> <span class=\"hps\"> Single,</span> <span class=\"hps\">which in reality</span> <span class=\"hps\">is not as</span> <span class=\"hps\">horrible</span> <span class=\"hps\">as you</span> <span class=\"hps\"> think</span><span>.</span><br /> <br /> <span class=\"hps\">&nbsp;</span></span></p>\n<div style=\"color: black; background-color: white;\">\n<pre>repo.Single (x =&gt; x.Id == 3) generate the following query:\n\n</pre>\n</div>\n<p><span class=\"hps\">&nbsp;</span></p>\n<p>&nbsp;</p>\n<div style=\"color: black; background-color: white;\">\n<pre><span style=\"color: blue;\">SELECT</span> <span style=\"color: blue;\">TOP</span> (2)\n[Extent1]. [Id] <span style=\"color: blue;\">AS</span> [Id]\n[Extent1]. [Name] <span style=\"color: blue;\">AS</span> [Name]\n<span style=\"color: blue;\">FROM</span> [dbo]. [Workbench] <span style=\"color: blue;\">AS</span> [Extent1]\n<span style=\"color: blue;\">WHERE</span> 3 = [Extent1]. [Id]\n\n</pre>\n</div>\n<p>As you can see, EF do not load the whole table in memory; just 2 lines.</p>\n<p>&nbsp;</p>\n<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">If the identifier</span> <span class=\"hps\"> is unique</span> <span class=\"hps\">we</span> <span class=\"hps\">can improve</span><span class=\"hps\"> a bit</span> <span class=\"hps\">by using</span> <span class=\"hps\">the First() method</span> <span class=\"hps\"> like this:</span><br /> <span class=\"hps\">&nbsp;</span></span></p>\n<div style=\"color: black; background-color: white;\">\n<pre>repo.First (x =&gt; x.Id == 3) \n</pre>\n</div>\n<p><span class=\"hps\">which results in</span><span> :</span><br /> <br /> <span class=\"hps\">&nbsp;</span></p>\n<div style=\"color: black; background-color: white;\">\n<pre><span style=\"color: blue;\">SELECT</span> <span style=\"color: blue;\">TOP</span> (1)\n[Extent1]. [Id] <span style=\"color: blue;\">AS</span> [Id]\n[Extent1]. [Name] <span style=\"color: blue;\">AS</span> [Name]\n<span style=\"color: blue;\">FROM</span> [dbo]. [Workbench] <span style=\"color: blue;\">AS</span> [Extent1]\n<span style=\"color: blue;\">WHERE</span> 3 = [Extent1]. [Id]\n</pre>\n</div>\n<p><span>&nbsp;</span><br /> <span class=\"hps\">But</span> <span class=\"hps\">as I said</span> <span class=\"hps\"> at the beginning</span><span>, the</span> <span class=\"hps\">search by</span> <span class=\"hps\"> Id</span> <span class=\"hps\">is a special case</span><span>, so we can</span> <span class=\"hps\"> use the</span> <span class=\"hps\">Find() method</span></p>\n<p>&nbsp;</p>\n<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">&nbsp;</span></span></p>\n<div style=\"color: black; background-color: white;\">\n<pre>repo.Find (y =&gt; y.Id == 3). Take (1)\n</pre>\n</div>\n<p><span class=\"hps\">&nbsp;</span> <span class=\"hps\">&nbsp;</span></p>\n<p>&nbsp;</p>\n<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">produces the</span> <span class=\"hps\">following SQL</span><span>:</span><br /> </span></p>\n<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">&nbsp;</span></span></p>\n<div style=\"color: black; background-color: white;\">\n<pre><span style=\"color: blue;\">SELECT</span>\n[Extent1]. [Id] <span style=\"color: blue;\">AS</span> [Id]\n[Extent1]. [Name] <span style=\"color: blue;\">AS</span> [Name]\n<span style=\"color: blue;\">FROM</span> [dbo]. [Workbench] <span style=\"color: blue;\">AS</span> [Extent1]\n<span style=\"color: blue;\">WHERE</span> 3 = [Extent1]. [Id]\n</pre>\n</div>\n<p><br /> <span class=\"hps\">This</span> <span class=\"hps\">last query</span> <span class=\"hps\"> is probably the</span> <span class=\"hps\">closest</span> <span class=\"hps\">that</span> <span class=\"hps\">everyone</span> <span class=\"hps\">would have written</span> <span class=\"hps\"> by hand.</span></p>\n<p>&nbsp;</p>\n<p><br /> Does this answer your question?</p>",
+    "PostedDate": "2012-01-24T15:21:16.273-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "731170",
+    "ThreadId": "287256",
+    "Html": "<p>Yes, thanks a lot for your response. It is clear now</p>",
+    "PostedDate": "2012-01-26T09:22:47.247-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "913693",
+    "ThreadId": "287256",
+    "Html": "<p>What about a SingleorDefault and a FirstOrDefault since .Single / .First / .Find throws an exception when <em>Sequence contains no elements</em></p>",
+    "PostedDate": "2012-09-17T10:33:59-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "914622",
+    "ThreadId": "287256",
+    "Html": "\r\n<blockquote style=\"border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em\">\r\n<strong>l_wolf wrote:</strong><br>\r\n<p>What about a SingleorDefault and a FirstOrDefault since .Single / .First / .Find throws an exception when\r\n<em>Sequence contains no elements</em></p>\r\n</blockquote>\r\n<p>Hello I_Wolf,</p>\r\n<p>SingleOrDefault and FirstOrDefault work and won't throw any exception.</p>\r\n<p>Their usage instead of Single and First depends on your requirements.</p>\r\n<p><span id=\"result_box\" lang=\"en\"><span>Back to the</span> <span>original question, I</span>\r\n<span>think it's better/safer</span> <span>to throw an exception</span> <span>if you are</span>\r\n<span>looking for</span> an element with <span>the</span> <span>key</span> <span>\r\nprimary and</span> <span>the query</span> <span>does not return</span> <span>results.</span></span></p>\r\n",
+    "PostedDate": "2012-09-19T07:13:55.48-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{990F3E58-0AF3-46BC-BBF7-3B55DA538B9B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EntityFramework.Patterns</RootNamespace>
+    <AssemblyName>EntityFramework.Patterns</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Main\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Afterthought, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AmendAttribute.cs" />
+    <Compile Include="Amenders\AuditableAmender.cs" />
+    <Compile Include="Amenders\ArchivableAmender.cs" />
+    <Compile Include="Caching\IEnumerableExtensions.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="DbContextExtensions.cs" />
+    <Compile Include="Decorators\AuditableRepository.cs" />
+    <Compile Include="Decorators\ArchivableRepository.cs" />
+    <Compile Include="Decorators\CacheableRepository.cs" />
+    <Compile Include="Extensions\AuditableAttribute.cs" />
+    <Compile Include="Extensions\ArchivableAttribute.cs" />
+    <Compile Include="Extensions\IArchivable.cs" />
+    <Compile Include="Extensions\IAuditable.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Caching\MemoryCacheProvider.cs" />
+    <Compile Include="IObjectContext.cs" />
+    <Compile Include="IObjectSetFactory.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="DbContextAdapter.cs" />
+    <Compile Include="PredicateBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="RepositoryDecoratorBase.cs" />
+    <Compile Include="Caching\TypeChangeMonitor.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Nuget\EntityFramework.Patterns.nuspec" />
+    <None Include="Nuget\tools\Install.ps1" />
+    <None Include="Nuget\tools\Uninstall.ps1" />
+    <None Include="Nuget_source.bat" />
+    <None Include="Nuget_wo_sources.bat" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Nuget\lib\net40\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\Afterthought\Afterthought.dll" />
+    <Content Include="Nuget\tools\Afterthought.Amender.exe" />
+    <Content Include="Nuget\tools\Afterthought.dll" />
+    <Content Include="Tools\7z.exe" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>ECHO BUILDING BINARY RELEASE
+"$(ProjectDir)Tools\7z" u "$(TargetDir)$(ProjectName).0.8.zip" "$(TargetPath)" "$(TargetDir)Afterthought.dll" "$(ProjectDir)Nuget\tools\"
+
+cd $(ProjectDir)
+ECHO BUILDING NUGET PACKAGE
+COPY $(TargetDir)\Afterthought.dll $(ProjectDir)Nuget\lib\net40
+COPY $(TargetPath) $(ProjectDir)Nuget\lib\net40
+$(ProjectDir)Nuget_wo_sources.bat</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

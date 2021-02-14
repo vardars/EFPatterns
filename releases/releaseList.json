@@ -1,0 +1,70 @@
+[
+  {
+    "Id": "0",
+    "Name": "EntityFramework.Patterns 0.7",
+    "DevelopmentStatus": "Stable",
+    "Description": "EntityFramework.Patterns 0.7 adds new caching capabilities to Entity Framework.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2012-09-04T14:51:49.707-07:00",
+    "Files": [
+      {
+        "Id": "45a3be6f-b5d8-4160-91f5-feb43e43e602",
+        "FileName": "EntityFramework.Patterns.0.7.zip",
+        "Url": "./0/45a3be6f-b5d8-4160-91f5-feb43e43e602",
+        "Type": "Application",
+        "UploadDate": "2012-09-04T14:51:49.3-07:00"
+      }
+    ]
+  },
+  {
+    "Id": "1",
+    "Name": "EntityFramework.Patterns 0.6",
+    "DevelopmentStatus": "Stable",
+    "Description": "EntityFramework.Patterns 0.6 targets Entity Framework 4.3.1 and correct some bugs that appeared in the previous version.",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2012-03-07T15:47:40.523-08:00",
+    "Files": [
+      {
+        "Id": "975e224a-7bbc-44e5-9c68-9d1cfd28838f",
+        "FileName": "EntityFramework.Patterns.0.6.zip",
+        "Url": "./1/975e224a-7bbc-44e5-9c68-9d1cfd28838f",
+        "Type": "Application",
+        "UploadDate": "2012-03-07T15:47:40.18-08:00"
+      }
+    ]
+  },
+  {
+    "Id": "2",
+    "Name": "EntityFramework.Patterns 0.5",
+    "DevelopmentStatus": "Stable",
+    "Description": "EntityFramework.Patterns 0.5 targets Entity Framework 4.1 and support the following patterns : \n* Generic Repository\n* Unit of work\n* Repository Decorator\n** AuditableRepository\n** ArchivableRepository\n* Auditable entity\n* Archivable entity",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2012-01-04T14:45:19.66-08:00",
+    "Files": [
+      {
+        "Id": "50e4181e-a305-46dd-ad6e-d068800687fb",
+        "FileName": "EntityFramework.Patterns.0.5.zip",
+        "Url": "./2/50e4181e-a305-46dd-ad6e-d068800687fb",
+        "Type": "Application",
+        "UploadDate": "2012-01-04T14:45:18.847-08:00"
+      }
+    ]
+  },
+  {
+    "Id": "3",
+    "Name": "EntityFramework.Patterns 0.8",
+    "DevelopmentStatus": "Stable",
+    "Description": "Entity Framework has been updated to 6.0.1",
+    "ReleasedDatge": "0001-01-01T00:00:00",
+    "ModifiedDate": "2013-11-16T14:07:31.167-08:00",
+    "Files": [
+      {
+        "Id": "b9d7f9aa-6433-4f72-b374-f2a1359c2a2c",
+        "FileName": "EntityFramework.Patterns.0.8.zip",
+        "Url": "./3/b9d7f9aa-6433-4f72-b374-f2a1359c2a2c",
+        "Type": "Application",
+        "UploadDate": "2013-11-16T14:06:47.923-08:00"
+      }
+    ]
+  }
+]

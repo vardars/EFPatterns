@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "852768",
+    "ThreadId": "360646",
+    "Html": "\r\n<p>how can i implement paging using these patterns.</p>\r\n",
+    "PostedDate": "2012-06-22T14:12:39.813-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "853432",
+    "ThreadId": "360646",
+    "Html": "<p>Hi <span class=\"UserProfileLink\">guaravkhanna,</span></p>\r\n<p><br />you might want to create a new repository that add this functionality.</p>\r\n<p>Maybe something like this :</p>\r\n<p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">using</span> System;\r\n<span style=\"color: blue;\">using</span> System.Collections.Generic;\r\n<span style=\"color: blue;\">using</span> System.Linq;\r\n<span style=\"color: blue;\">using</span> System.Linq.Expressions;\r\n<span style=\"color: blue;\">using</span> EntityFramework.Patterns;\r\n\r\n<span style=\"color: blue;\">namespace</span> efPatternsWorkbench\r\n{\r\n    <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">class</span> PagingRepository&lt;T&gt; : Repository&lt;T&gt; <span style=\"color: blue;\">where</span> T : <span style=\"color: blue;\">class</span>\r\n    {\r\n        <span style=\"color: blue;\">public</span> PagingRepository(IObjectSetFactory objectSetFactory) : <span style=\"color: blue;\">base</span>(objectSetFactory){}\r\n\r\n        <span style=\"color: blue;\">public</span> IEnumerable&lt;T&gt; GetPage&lt;TKey&gt;(<span style=\"color: blue;\">int</span> pageNumber, <span style=\"color: blue;\">int</span> pageSize, Expression&lt;Func&lt;T, TKey&gt;&gt; orderBy)\r\n        {\r\n            <span style=\"color: blue;\">return</span> AsQueryable().OrderBy(orderBy).Skip(pageSize * (pageNumber - 1)).Take(pageSize);\r\n        }\r\n    }\r\n}\r\n</pre>\r\n</div>\r\n</p>\r\n<p>and then you can use it like this :</p>\r\n<p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">using</span> (EfContext ctx = <span style=\"color: blue;\">new</span> EfContext())\r\n            {\r\n                DbContextAdapter adpt = <span style=\"color: blue;\">new</span> DbContextAdapter(ctx);\r\n                PagingRepository&lt;User&gt; repo = <span style=\"color: blue;\">new</span> PagingRepository&lt;User&gt;(adpt);\r\n                IEnumerable&lt;User&gt; usr = repo.GetPage(2, 1, user =&gt; user.Id);\r\n            }\r\n</pre>\r\n</div>\r\n</p>\r\n<p>I hope this helps.</p>",
+    "PostedDate": "2012-06-25T15:12:19.15-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

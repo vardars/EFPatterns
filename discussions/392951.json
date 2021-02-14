@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "903606",
+    "ThreadId": "392951",
+    "Html": "\r\n<p>Are there interfaces available so that I am able to to create Mocks and or code for Inversion Of Control and dependency injection</p>\r\n",
+    "PostedDate": "2012-08-24T07:06:00.32-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "903613",
+    "ThreadId": "392951",
+    "Html": "\r\n<p>Hello bcbeatty,</p>\r\n<p>almost all objects in this library implements an Interface.</p>\r\n<p>There is an example of IoC with unity <a title=\"IoC\" href=\"http://efpatterns.codeplex.com/wikipage?title=IoC%20%3a%20Unity%202.1&referringTitle=Documentation\">\r\nhere</a> in the documentation.</p>\r\n<p>And if you prefer NInject you might have a look to <a title=\"MVCArch\" href=\"https://github.com/fmichellonet/MVCArch\">\r\nthis</a> sample i've published on Github.</p>\r\n<p>Hope this helps.</p>\r\n",
+    "PostedDate": "2012-08-24T07:10:31.133-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

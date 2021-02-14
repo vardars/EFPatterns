@@ -1,0 +1,50 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "Library updated.",
+    "ClosedDate": "2013-11-18T01:14:58.813-08:00",
+    "CommentCount": 2,
+    "Custom": null,
+    "Description": "Hi Fabrice,\r\n\r\nFirst of all, thanks very much for your effort creating this library. I have been using it for quite a while, it is very reliable and easy to use and does exactly as it says on the tin.\r\n\r\nI have recently updated my project to MVC 5 and entity framework 6, and the library stopped working. This is possible due to come changes in EF library. I did even try to download the source code and update the EF version but unfortunately I cannot get it working.\r\n\r\nThere was a problems when executing the following line of code: \r\n\r\npublic static class DbContextExtensions\r\n    {\r\n        public static ObjectContext GetObjectContext(this DbContext dbContext)\r\n        {\r\n            return (dbContext.GetObjectContext());\r\n        }\r\n    }\r\n\r\nNote that I have updated the code to make it compile.\r\n\r\nDo you have any plans to update this library to support latest version of Entity framework?\r\n\r\nThanks again,\r\n\r\nYong",
+    "LastUpdatedDate": "2013-11-18T06:01:44.65-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Unassigned",
+      "Severity": 0,
+      "Id": 0
+    },
+    "ProjectName": "EFPatterns",
+    "ReportedDate": "2013-11-04T02:16:58.037-08:00",
+    "Status": {
+      "Name": "Closed",
+      "Id": 4
+    },
+    "ReasonClosed": {
+      "Name": "Fixed"
+    },
+    "Summary": "Not working in EF 6",
+    "Type": {
+      "Name": "Unassigned",
+      "Id": 5
+    },
+    "VoteCount": 1,
+    "Id": 3
+  },
+  "FileAttachments": [],
+  "Comments": [
+    {
+      "Message": "Hi Yong,\n\nthanks for using my this lib.\n\nI've recently updated EntityFramework.Patterns to support EF 6.\nYou should be able to update via nuget;",
+      "PostedDate": "2013-11-18T01:12:07.527-08:00",
+      "Id": 123347
+    },
+    {
+      "Message": "Hi Fabrice, \n\nThanks very much for your hard work. I am trying use your library with structuremap IoC container and have problems resolving the DbContextAdapter. I have read your documentation on Unity IoC but failed to transfer the following line of code to Structuremap.\n \nCan you shield some light on working with Structuremap IoC container please?\n\n\n UnityContainer.RegisterInstance(new DbContextAdapter(UnityContainer.Resolve<DbContext>()), new ContainerControlledLifetimeManager());\n\n            UnityContainer.RegisterType<IObjectSetFactory>(\n                new InjectionFactory(con => con.Resolve<DbContextAdapter>())\n                );\n\n            UnityContainer.RegisterType<IObjectContext>(\n                new InjectionFactory(con => con.Resolve<DbContextAdapter>())\n                );\n\n\nThanks again,\nYong",
+      "PostedDate": "2013-11-18T06:01:44.65-08:00",
+      "Id": 123363
+    }
+  ]
+}

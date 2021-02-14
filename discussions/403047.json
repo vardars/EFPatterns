@@ -1,0 +1,42 @@
+[
+  {
+    "Id": "941006",
+    "ThreadId": "403047",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>I'm using your library extensively and I've ran into a stubbling block. I'm trying to get the repository and unit of work to work with multiple DbContext with Unity IoC that's in my project.</p>\r\n<p>If you can point out where and how do I configure in such a way I can use multiples DbContext?</p>\r\n<p>Thanks.</p>\r\n",
+    "PostedDate": "2012-11-13T07:18:44.673-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "993706",
+    "ThreadId": "403047",
+    "Html": "\r\n<p>I also have a requirement in my project to utilize multiple DbContexts, and would like to know how to register my contexts with Unity IoC container. If I understand it correctly, as is, we'd need to register the DbContext to resolve to a single specific\r\n context.</p>\r\n<p>Any help with this would be appreciated.</p>\r\n<p>Thanks!</p>\r\n",
+    "PostedDate": "2013-01-29T08:15:35.953-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1039399",
+    "ThreadId": "403047",
+    "Html": "Hi, I need to address this problem too, please can you give us an answer for this request.<br />\n",
+    "PostedDate": "2013-05-04T10:42:46.757-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1039418",
+    "ThreadId": "403047",
+    "Html": "I hope this could help anyone:<br />\n<pre><code>   IUnityContainer container = new UnityContainer();\n\n            container.RegisterType&lt;DbContext, CompanyContext&gt;(&quot;CompanyContext&quot;)\n                     .RegisterInstance(&quot;CompanyContextAdapter&quot;,\n                                       new DbContextAdapter(container.Resolve&lt;DbContext&gt;(&quot;CompanyContext&quot;)),\n                                       new ContainerControlledLifetimeManager())\n                     .RegisterType&lt;IObjectSetFactory&gt;(&quot;CompanyObjectSetFactory&quot;,\n                                                      new InjectionFactory(\n                                                          con =&gt; con.Resolve&lt;DbContextAdapter&gt;(&quot;CompanyContextAdapter&quot;)))\n                     .RegisterType&lt;IObjectContext&gt;(&quot;CompanyOjectContext&quot;,\n                                                   new InjectionFactory(\n                                                       con =&gt; con.Resolve&lt;DbContextAdapter&gt;(&quot;CompanyContextAdapter&quot;)))\n                     .RegisterType&lt;IRepository&lt;RM30101&gt;, Repository&lt;RM30101&gt;&gt;(\n                         new InjectionConstructor(container.Resolve&lt;IObjectSetFactory&gt;(&quot;CompanyObjectSetFactory&quot;)))\n                     .RegisterType&lt;INotasDeCreditoService, NotasDeCreditoService&gt;();</code></pre>\n\nIn this example I just have registered one dbcontext but since its named, if I register another the resolution process would have a mechanism to discriminate.<br />\n",
+    "PostedDate": "2013-05-04T12:11:54.25-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1053865",
+    "ThreadId": "403047",
+    "Html": "I had troubles with my last configuration for multiples DbContexts. This one is probed and is working. Enjoy :)<br />\n<pre><code>var container = new UnityContainer();\n\ncontainer.RegisterType(typeof(DbContext)\n                                 , typeof(FirstContext)\n                                 , &quot;firstContext&quot;);\ncontainer.RegisterInstance(&quot;firstContext&quot;\n                                     , new DbContextAdapter(container.Resolve&lt;DbContext&gt;(&quot;firstContext&quot;))\n                                     , new ContainerControlledLifetimeManager());\n\ncontainer.RegisterType(typeof(IRepository&lt;&gt;)\n                                 , typeof(Repository&lt;&gt;)\n                                 , &quot;firstContext&quot;\n                                 , new InjectionConstructor(container.Resolve&lt;DbContextAdapter&gt;(&quot;firstContext&quot;)));\ncontainer.RegisterType(typeof(IUnitOfWork)\n                                 , typeof(UnitOfWork)\n                                 , &quot;firstContext&quot;\n                                 , new InjectionConstructor(container.Resolve&lt;DbContextAdapter&gt;(&quot;firstContext&quot;)));\n\ncontainer.RegisterType(typeof(DbContext)\n                                 , typeof(SecondContext)\n                                 , &quot;secondContext&quot;);\ncontainer.RegisterInstance(&quot;secondContext&quot;\n                                     , new DbContextAdapter(container.Resolve&lt;DbContext&gt;(&quot;secondContext&quot;))\n                                     , new ContainerControlledLifetimeManager());\n\ncontainer.RegisterType(typeof(IRepository&lt;&gt;), typeof(Repository&lt;&gt;), &quot;secondContext&quot;\n              , new InjectionConstructor(container.Resolve&lt;DbContextAdapter&gt;(&quot;secondContext&quot;)));\ncontainer.RegisterType(typeof(IUnitOfWork)\n                                 , typeof(UnitOfWork)\n                                 , &quot;secondContext&quot;\n                                 , new InjectionConstructor(container.Resolve&lt;DbContextAdapter&gt;(&quot;secondContext&quot;)));\n\n\nvar repository1 = container.Resolve&lt;IRepository&lt;Foo&gt;&gt;(&quot;firstContext&quot;);\nvar uow1 = container.Resolve&lt;IUnitOfWork&gt;(&quot;firstContext&quot;);\n\nvar repository2 = container.Resolve&lt;IRepository&lt;Foo&gt;&gt;(&quot;secondContext&quot;);\nvar uow2 = container.Resolve&lt;IUnitOfWork&gt;(&quot;secondContext&quot;);\n</code></pre>\n\n",
+    "PostedDate": "2013-06-06T23:03:34.853-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

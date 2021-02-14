@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "1110279",
+    "ThreadId": "463051",
+    "Html": "Hi, now that EF 6 has been released, could you please update the nuget package?\r<br />\n<br />\nThanks!<br />\n",
+    "PostedDate": "2013-10-21T15:14:34.697-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1125902",
+    "ThreadId": "463051",
+    "Html": "I've updated EntityFramework.Patterns to support EF 6.<br />\n",
+    "PostedDate": "2013-11-18T01:16:08.217-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1126126",
+    "ThreadId": "463051",
+    "Html": "Thanks!<br />\n",
+    "PostedDate": "2013-11-18T09:53:55.2-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

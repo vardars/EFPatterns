@@ -1,0 +1,122 @@
+[
+  {
+    "Id": "270042",
+    "Title": "Need some samples",
+    "LatestDate": "2012-06-03T14:32:42.857-07:00"
+  },
+  {
+    "Id": "282699",
+    "Title": "Auditable Repository sample code",
+    "LatestDate": "2013-01-28T12:27:13.123-08:00"
+  },
+  {
+    "Id": "287256",
+    "Title": "GetByID method",
+    "LatestDate": "2012-09-19T07:13:55.48-07:00"
+  },
+  {
+    "Id": "341473",
+    "Title": "ArchivableRepository ",
+    "LatestDate": "2012-02-26T06:07:39.98-08:00"
+  },
+  {
+    "Id": "346435",
+    "Title": "[Auditable,Archivable]Workbench{}",
+    "LatestDate": "2012-03-22T05:43:17.27-07:00"
+  },
+  {
+    "Id": "350064",
+    "Title": "Integration Code First",
+    "LatestDate": "2012-04-11T07:25:37.497-07:00"
+  },
+  {
+    "Id": "354010",
+    "Title": "Stored Procedures",
+    "LatestDate": "2012-05-03T14:01:21.357-07:00"
+  },
+  {
+    "Id": "358037",
+    "Title": "Populating entities two+ levels deep",
+    "LatestDate": "2012-06-05T05:26:48.453-07:00"
+  },
+  {
+    "Id": "360454",
+    "Title": "Deletion without cascading",
+    "LatestDate": "2012-06-25T16:23:03.453-07:00"
+  },
+  {
+    "Id": "360646",
+    "Title": "How to do paging using this repository pattern implementation",
+    "LatestDate": "2012-06-25T15:12:19.15-07:00"
+  },
+  {
+    "Id": "361700",
+    "Title": "Auditable/Archivable with Generic Repository, UnitOfWork and a business logic layer.",
+    "LatestDate": "2012-07-02T08:24:16.843-07:00"
+  },
+  {
+    "Id": "390120",
+    "Title": "Centralize Repository Lambda Code ",
+    "LatestDate": "2012-08-19T15:01:26.197-07:00"
+  },
+  {
+    "Id": "391443",
+    "Title": "Existence check and count",
+    "LatestDate": "2012-08-23T14:00:08.46-07:00"
+  },
+  {
+    "Id": "392951",
+    "Title": "Mock and InversionOfControl",
+    "LatestDate": "2012-08-24T07:10:31.133-07:00"
+  },
+  {
+    "Id": "396143",
+    "Title": "ObjectContext attachment to cached entity.",
+    "LatestDate": "2012-09-23T14:43:49.573-07:00"
+  },
+  {
+    "Id": "399479",
+    "Title": "Entity Framework 5",
+    "LatestDate": "2013-09-19T09:23:01.78-07:00"
+  },
+  {
+    "Id": "402607",
+    "Title": "Add support for PropertyVisitor and QueryInterceptor",
+    "LatestDate": "2012-11-09T11:38:03.153-08:00"
+  },
+  {
+    "Id": "403047",
+    "Title": "Multiple DbContext",
+    "LatestDate": "2013-06-06T23:03:34.853-07:00"
+  },
+  {
+    "Id": "457449",
+    "Title": "Nuget Package",
+    "LatestDate": "2013-11-18T01:18:21.89-08:00"
+  },
+  {
+    "Id": "457453",
+    "Title": "Handling errors on IUnitOfWork.Commit",
+    "LatestDate": "2013-09-19T09:49:50.5-07:00"
+  },
+  {
+    "Id": "463051",
+    "Title": "Hi, can Entity Framework be upgraded to the latest version?",
+    "LatestDate": "2013-11-18T09:53:55.2-08:00"
+  },
+  {
+    "Id": "474897",
+    "Title": "Bug about exited with code -532462766 ?",
+    "LatestDate": "2013-12-22T05:36:10.913-08:00"
+  },
+  {
+    "Id": "539489",
+    "Title": "CacheRepository Invalidation Not Working",
+    "LatestDate": "2014-03-19T08:54:39.537-07:00"
+  },
+  {
+    "Id": "546343",
+    "Title": "Missing wiki page: Auditable Repository",
+    "LatestDate": "2014-05-23T04:10:03.113-07:00"
+  }
+]

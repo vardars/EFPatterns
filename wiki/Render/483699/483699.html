@@ -1,0 +1,44 @@
+<div class="wikidoc">Given the following model <br /><br /><pre>public class Context : DbContext
+{
+    public virtual DbSet&lt;Product&gt; Products { get; set; }
+    public virtual DbSet&lt;ProductCategory&gt; Categories { get; set; }
+ 
+    public Context()
+    {
+        Database.SetInitializer(new DropCreateDatabaseAlways&lt;Context&gt;());
+    }
+}
+ 
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int? ProductCategoryId { get; set; }
+    public virtual ProductCategory ProductCategory { get; set; }
+}
+ 
+public class ProductCategory
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}</pre><br />In order to manipulate products, we can create a Repository like this : <br /><br /><pre>using(Context ctx = new Context())
+{
+    DbContextAdapter adapter = new DbContextAdapter(ctx);
+    IRepository&lt;Product&gt; productRepo = new Repository&lt;Product&gt;(adp);
+}</pre><br />Let&#39;s query the database to fetch all products :<br /><br /><pre>IEnumerable&lt;Product&gt; lst = productRepo.GetAll();</pre><br />Now, let&#39;s bring back the first item whose name begins with &quot;Bike&quot;<br /><br /><pre>Product prod = productRepo.First(p =&gt; p.Name.StartsWith(&quot;Bike&quot;));</pre><br />Using the Single method has the same effect (returns only one element), but throws an exception if multiple items meet the criteria.<br /><br /><pre>productRepo.Single(p =&gt; p.Name.StartsWith(&quot;Roc&quot;))</pre><br />Find method, filters the resultset based on several criteria :<br /><br /><pre>IEnumerable&lt;Product&gt; lst = productRepo.Find(
+                p =&gt; p.Id &lt; 100 &amp;&amp; p.Name.Contains(&quot;o&quot;) &amp;&amp; p.Name.Length &lt; 20);</pre><br />All these methods accept an optional set of navigation links between entities materializing joins that will be performed when querying.<br /><br /><pre>productRepo.First(p =&gt; p.ProductCategoryId != null , p =&gt; p.ProductCategory);</pre><br />The above syntax loads the product and its associated category in a single SQL query; This approach avoids the N+1 Selects problem, that might appears when using lazy loading.<br /><br />Now, when you need to &quot;write&quot; to your db you&#39;ll need the Unit of work pattern.<br /><br /><pre>using(Context ctx = new Context())
+{
+   DbContextAdapter adapter = new DbContextAdapter(ctx);
+   IRepository&lt;Product&gt; productRepo = new Repository&lt;Product&gt;(adp);
+   IUnitOfWork unitOfWork = new UnitOfWork(adp);
+   Product p = new Product{Name = &quot;Skateboard&quot;};
+   productRepo.Insert(p);
+   unitOfWork.Commit();
+}</pre><br />As you can see the update and deletion are as simple as that:<br /><br /><pre>Product p = productRepo.First(c =&gt; c.Name == &quot;Bike&quot;);
+p.Name = &quot;New bike&quot;;
+productRepo.Update(p);
+ 
+Product delete = productRepo.First(p =&gt; p.Name.StartsWith(&quot;To be&quot;));
+productRepo.Delete(delete);
+ 
+unitOfWork.Commit();</pre></div><div class="ClearBoth"></div>

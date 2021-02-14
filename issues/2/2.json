@@ -1,0 +1,39 @@
+{
+  "WorkItem": {
+    "AffectedComponent": {
+      "Name": "",
+      "DisplayName": ""
+    },
+    "ClosedComment": "",
+    "ClosedDate": null,
+    "CommentCount": 0,
+    "Custom": null,
+    "Description": "I was testing CacheableRepository when in Profiler I can see database of code below being queried twice.\r\n\r\n using (var con = new EntityDataContainer())\r\n            {\r\n                IRepository<Role> db = new Repository<Role>(new DbContextAdapter(con));\r\n                IRepository<Role> ca = new CacheableRepository<Role>(db);\r\n                \r\n                var roles1 = ca.Find(r => r.name.StartsWith(\"A\"));    //1st DB hit at  _cacheProvider.Add(query, policy);\r\n\r\n                foreach (var r in roles1)    //2nd DB hit\r\n                {\r\n                    //Do something\r\n                }",
+    "LastUpdatedDate": "2012-12-30T01:12:00.43-08:00",
+    "PlannedForRelease": "",
+    "ReleaseVisibleToPublic": false,
+    "Priority": {
+      "Name": "Low",
+      "Severity": 50,
+      "Id": 1
+    },
+    "ProjectName": "EFPatterns",
+    "ReportedDate": "2012-12-30T01:12:00.43-08:00",
+    "Status": {
+      "Name": "Proposed",
+      "Id": 1
+    },
+    "ReasonClosed": {
+      "Name": "Unassigned"
+    },
+    "Summary": "CacheableRepository hits DB twice",
+    "Type": {
+      "Name": "Issue",
+      "Id": 3
+    },
+    "VoteCount": 1,
+    "Id": 2
+  },
+  "FileAttachments": [],
+  "Comments": []
+}

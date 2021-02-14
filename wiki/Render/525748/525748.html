@@ -1,0 +1,86 @@
+<div class="wikidoc"><h1>IoC : using EntityFramework.Patterns with Unity 2.1</h1>
+<br />Given the following extremely simple model and context <br /><br /><pre>    public class Workbench
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Context : DbContext
+    {
+
+        public IDbSet&lt;Workbench&gt; Workbenches { get; set; }
+
+        public Context()
+        {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges&lt;Context&gt;());
+        }
+    }
+</pre><br />that is intended to be used in the following Service <br /><br /><pre>    public class Service
+    {
+        private readonly IRepository&lt;Workbench&gt; _repo;
+        private readonly IUnitOfWork _uow;
+
+        public Service(IRepository&lt;Workbench&gt; repo, IUnitOfWork uow)
+        {
+            _repo = repo;
+            _uow = uow;
+        }
+
+        public IEnumerable&lt;Workbench&gt; LoadAll()
+        {
+            return _repo.GetAll();
+        }
+
+        public void Insert(Workbench workbench)
+        {
+            _repo.Insert(workbench);
+            _uow.Commit();
+        }
+    }</pre><br />We would like to inject the Repository and Unit of Work in the Service class.<br />We can achieve the injection like this : <br /><br /><pre>public static class CompositionRoot
+    {
+
+        private static readonly IUnityContainer UnityContainer = new UnityContainer();
+
+        public static IUnityContainer Container { get { return UnityContainer; } }
+
+        public static void RegisterServices()
+        {
+            // Registering interfaces of Unit Of Work &amp; Generic Repository
+            UnityContainer.RegisterType(typeof(IRepository&lt;&gt;), typeof(Repository&lt;&gt;));
+            UnityContainer.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork));
+
+            // Every time we ask for a EF context, we&#39;ll pass our own Context.
+            UnityContainer.RegisterType(typeof(DbContext), typeof(Context));
+
+            // Tricky part.
+            // Your repositories and unit of work must share the same DbContextAdapter, so we register an instance that will always be used
+            // on subsequente resolve.
+            // Note : you should not use ContainerControlledLifetimeManager when using ASP.NET or MVC
+            // and use a per request lifetime manager
+            UnityContainer.RegisterInstance(new DbContextAdapter(UnityContainer.Resolve&lt;DbContext&gt;()), new ContainerControlledLifetimeManager());
+
+            UnityContainer.RegisterType&lt;IObjectSetFactory&gt;(
+                new InjectionFactory(con =&gt; con.Resolve&lt;DbContextAdapter&gt;())
+                );
+
+            UnityContainer.RegisterType&lt;IObjectContext&gt;(
+                new InjectionFactory(con =&gt; con.Resolve&lt;DbContextAdapter&gt;())
+                );
+        }
+    }</pre><br />From now on, we can use our repository like that :<br /><br /><pre>class Program
+    {
+        static void Main(string[] args)
+        {
+            CompositionRoot.RegisterServices();
+
+            Service s = CompositionRoot.Container.Resolve&lt;Service&gt;();
+            
+            IEnumerable&lt;Workbench&gt; lst = s.LoadAll();
+            int cnt = lst.Count();
+
+            s.Insert(new Workbench{Name = Guid.NewGuid().ToString()});
+
+            lst = s.LoadAll();
+            cnt = lst.Count();
+        }
+    }</pre></div><div class="ClearBoth"></div>

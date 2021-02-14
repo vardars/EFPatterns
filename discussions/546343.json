@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1248816",
+    "ThreadId": "546343",
+    "Html": "Hello,\r<br />\n<br />\nThe documentation on the following page seems to be missing: \r<br />\n<a href=\"https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&amp;wtrealm=urn:www.codeplex.com&amp;wreply=https://www.codeplex.com/site/login/federation.aspx?redirectUrl=https%253a%252f%252fefpatterns.codeplex.com%252fdiscussions%252fcreate%253fwikiPageTitle%253dAuditable%2520Repository%2526referer%253dhttps%253a%252f%252fefpatterns.codeplex.com%252fwikipage%253ftitle%253dPattern%2520%253a%2520Repository%2520Decorator%2526referringTitle%253dHome%2526ProjectName%253defpatterns&amp;bk=1400843375&amp;uaid=76d52c8f8dab4187b65f9c1a7da966a5\" rel=\"nofollow\">https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&wtrealm=urn:www.codeplex.com&wreply=https://www.codeplex.com/site/login/federation.aspx?redirectUrl=https%253a%252f%252fefpatterns.codeplex.com%252fdiscussions%252fcreate%253fwikiPageTitle%253dAuditable%2520Repository%2526referer%253dhttps%253a%252f%252fefpatterns.codeplex.com%252fwikipage%253ftitle%253dPattern%2520%253a%2520Repository%2520Decorator%2526referringTitle%253dHome%2526ProjectName%253defpatterns&bk=1400843375&uaid=76d52c8f8dab4187b65f9c1a7da966a5</a>\r<br />\n<br />\nI found the link on this page: \r<br />\n<a href=\"https://efpatterns.codeplex.com/wikipage?title=Pattern\" rel=\"nofollow\">https://efpatterns.codeplex.com/wikipage?title=Pattern</a> : Repository Decorator\r<br />\n<br />\nCan you look into fixing this page?\r<br />\n<br />\nThank you.<br />\n",
+    "PostedDate": "2014-05-23T04:10:03.113-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

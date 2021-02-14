@@ -1,0 +1,34 @@
+[
+  {
+    "Id": "1138232",
+    "ThreadId": "474897",
+    "Html": "Why ?\r<br />\n<br />\nError\t1\tThe command &quot;&quot;D:\\Projects\\Smart  Building\\Code\\CodeFirstNewDatabaseSample\\packages\\EntityFramework.Patterns.0.8\\tools\\Afterthought.Amender.exe&quot; &quot;D:\\Projects\\Smart  Building\\Code\\CodeFirstNewDatabaseSample\\CodeFirstNewDatabaseSample\\bin\\Debug\\CodeFirstNewDatabaseSample.exe&quot; &quot;D:\\Projects\\Smart  Building\\Code\\CodeFirstNewDatabaseSample\\CodeFirstNewDatabaseSample\\bin\\Debug\\EntityFramework.Patterns.dll&quot;\r<br />\n&quot; exited with code -532462766.\tCodeFirstNewDatabaseSample<br />\n",
+    "PostedDate": "2013-12-19T06:50:23.58-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1138253",
+    "ThreadId": "474897",
+    "Html": "Hi xuanyan,\r<br />\n<br />\ncan you isolate the code that produce this behavior, and post it here ?\r<br />\nThis certainly has something to do with IArchivable or IAuditable entities.<br />\n",
+    "PostedDate": "2013-12-19T07:49:31.42-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1140645",
+    "ThreadId": "474897",
+    "Html": "Hi Dear Fab_Michellonet:\r<br />\n<br />\n 1, I down source code zip file (efpatterns-181828c3b16f.zip) from codeplex web \r<br />\n 2, I unzip the &quot;efpatterns-181828c3b16f.zip&quot;\r<br />\n 3, Open the solution of EntityFramework.Patterns by Microsoft Visual Studio 2010\r<br />\n 4,Build project of  &quot;EntityFramework.Patterns&quot;\r<br />\n 5,The error has happened:\r<br />\n<br />\n<br />\nError\t1\tThe command &quot;ECHO BUILDING BINARY RELEASE\r<br />\n&quot;D:\\Main\\EntityFramework.Patterns\\Tools\\7z&quot; u &quot;D:\\Main\\EntityFramework.Patterns\\bin\\Debug\\EntityFramework.Patterns.0.8.zip&quot; &quot;D:\\Main\\EntityFramework.Patterns\\bin\\Debug\\EntityFramework.Patterns.dll&quot; &quot;D:\\Main\\EntityFramework.Patterns\\bin\\Debug\\Afterthought.dll&quot; &quot;D:\\Main\\EntityFramework.Patterns\\Nuget\\tools\\&quot;\r<br />\n<br />\ncd D:\\Main\\EntityFramework.Patterns\\\r<br />\nECHO BUILDING NUGET PACKAGE\r<br />\nCOPY D:\\Main\\EntityFramework.Patterns\\bin\\Debug\\Afterthought.dll D:\\Main\\EntityFramework.Patterns\\Nuget\\lib\\net40\r<br />\nCOPY D:\\Main\\EntityFramework.Patterns\\bin\\Debug\\EntityFramework.Patterns.dll D:\\Main\\EntityFramework.Patterns\\Nuget\\lib\\net40\r<br />\nD:\\Main\\EntityFramework.Patterns\\Nuget_wo_sources.bat&quot; exited with code -1.\tEntityFramework.Patterns<br />\n",
+    "PostedDate": "2013-12-22T05:25:57.47-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1140649",
+    "ThreadId": "474897",
+    "Html": "1, I open  Microsoft Visual Studio 2010 \r<br />\n2, Create a windows form project\r<br />\n3, Open Package Manager Console\r<br />\n4,  Install-Package EntityFramework.Patterns(PM&gt; Install-Package EntityFramework.Patterns)\r<br />\n5, Build the project \r<br />\n6, Error happend:\r<br />\n<br />\n<br />\nError\t2\tThe command &quot;&quot;D:\\Projects\\Smart  Building\\Code\\EntityFramework.Patterns.Test\\packages\\EntityFramework.Patterns.0.8\\tools\\Afterthought.Amender.exe&quot; &quot;D:\\Projects\\Smart  Building\\Code\\EntityFramework.Patterns.Test\\EntityFramework.Patterns.Test\\bin\\Debug\\EntityFramework.Patterns.Test.exe&quot; &quot;D:\\Projects\\Smart  Building\\Code\\EntityFramework.Patterns.Test\\EntityFramework.Patterns.Test\\bin\\Debug\\EntityFramework.Patterns.dll&quot;\r<br />\n&quot; exited with code -532462766.\tEntityFramework.Patterns.Test<br />\n",
+    "PostedDate": "2013-12-22T05:36:10.913-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

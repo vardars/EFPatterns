@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "939308",
+    "ThreadId": "402607",
+    "Html": "\r\n<p>Currently when I want to use this, I need to create a new RepositoryEx class and modify the AsQueryable method like this:\r\n<code><br>\r\n</code></p>\r\n<div style=\"color:black; background-color:white\"><code></code>\r\n<pre><code><span style=\"color:blue\">public</span> IQueryable&lt;T&gt; AsQueryable()\n{\n    <span style=\"color:blue\">return</span> _objectSet.InterceptWith(<span style=\"color:blue\">new</span> PropertyVisitor());\n}\n</code>\n</pre>\r\n</div>\r\n<p><br>\r\nSo maybe make the _objectSet protected or make the AsQueryable() method virtual so it can be overridden ?</p>\r\n",
+    "PostedDate": "2012-11-09T11:38:03.153-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

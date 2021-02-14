@@ -1,0 +1,7 @@
+<div class="wikidoc"><h1>Archivable entity</h1>
+Entities marked with <i>Archivable</i> attribute automatically implements the <a href="https://efpatterns.codeplex.com/wikipage?title=IArchivable%20interface&referringTitle=Pattern%20%3a%20Archivable%20entity">IArchivable interface</a>.<br /><br />For example the ArchivableEntity class defined below<br /><br /><pre>    [Archivable]
+    public class ArchivableEntity
+    {
+        public int Id { get; set; }
+        public float Value { get; set; }
+    }</pre><br />will end up having this structure after compilation :<br /><br /><img src="http://download-codeplex.sec.s-msft.com/Download?ProjectName=EFPatterns&DownloadId=306143" alt="ArchivableEntityReflector.png" title="ArchivableEntityReflector.png" /><br /><br />Note that the <a href="https://efpatterns.codeplex.com/wikipage?title=ArchivableRepository&referringTitle=Pattern%20%3a%20Archivable%20entity">Archivable repository</a> is a convenient way to query Archivable entities.<br /></div><div class="ClearBoth"></div>

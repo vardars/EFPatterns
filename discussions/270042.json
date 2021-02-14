@@ -1,0 +1,74 @@
+[
+  {
+    "Id": "661932",
+    "ThreadId": "270042",
+    "Html": "\r\n<p>Hi</p>\r\n<p>Was looking around for generic repository pattern and unit of work pattern with the entity framework and stumpled upon this nuget package.</p>\r\n<p>Have been pooking around and looking at the source code and its unit tests, but I think that some simple samples for using the code would make this promising pack even more interesting.</p>\r\n<p>Any timeline on the documentation? And would you say the&nbsp;package is production ready?</p>\r\n",
+    "PostedDate": "2011-08-23T00:22:20.623-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "679513",
+    "ThreadId": "270042",
+    "Html": "<p>Hi,</p>\r\n<p>sorry for the long delay. I forgot to subscribe to all discussion so i haven't been notified of this question.</p>\r\n<p>I've been quite busy in the past few month; that's why the the documentation is desperately empty; i'm really sorry for that.</p>\r\n<p>Adding samples is definitively in my to do list in the top position.</p>\r\n<p>If you're still interested in some sample code, you might want to have a look to <a href=\"http://mymemoryleaks.blogspot.com/2011/07/entityframeworkpatterns-repository-unit_13.html\" target=\"_blank\">this post on my blog</a>. It's in French but there is enough code to understand.</p>\r\n<p>Hope this helps.</p>",
+    "PostedDate": "2011-10-03T14:49:01.223-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "682105",
+    "ThreadId": "270042",
+    "Html": "<p>I've just added a <a href=\"http://efpatterns.codeplex.com/wikipage?title=Pattern%20%3a%20Use%20Repository%20and%20UOF&amp;referringTitle=Documentation\" target=\"_blank\"> tutorial</a> that shows how to use Repository&lt;T&gt; and UnitOfWork patterns</p>",
+    "PostedDate": "2011-10-10T07:15:58.787-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "841682",
+    "ThreadId": "270042",
+    "Html": "<p>Can you explain this a little better? &nbsp;How do you mock the repository? &nbsp;In your code the DbContext is passed in, or you create it. &nbsp;That is not testable.</p>",
+    "PostedDate": "2012-05-28T08:14:52.58-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "842803",
+    "ThreadId": "270042",
+    "Html": "\r\n<p>cbordeman,</p>\r\n<p>did you read the <a href=\"http://efpatterns.codeplex.com/wikipage?title=Pattern%20%3a%20Use%20Repository%20and%20UOF&referringTitle=Documentation\">\r\ntutorial</a> ?</p>\r\n<hr>\r\n<blockquote style=\"border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em\">\r\n<strong>cbordeman wrote:</strong><br>\r\n<p>In your code the DbContext is passed in, or you create it.</p>\r\n</blockquote>\r\n<p>here is what you can read in the tutorial :</p>\r\n<p>In order to manipulate products, we can create a Repository like this :</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre><span style=\"color:blue\">using</span>(Context ctx = <span style=\"color:blue\">new</span> Context())\n{\n    DbContextAdapter adapter = <span style=\"color:blue\">new</span> DbContextAdapter(ctx);\n    IRepository&lt;Product&gt; productRepo = <span style=\"color:blue\">new</span> Repository&lt;Product&gt;(adp);\n}\n</pre>\r\n<br>\r\n=&gt; I create the context and it is passed to the Reposotory via the DbContextAdapter.<br>\r\n<hr>\r\n</div>\r\n<blockquote style=\"border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em\">\r\n<strong>cbordeman wrote:</strong><br>\r\n<p>How do you mock the repository?</p>\r\n</blockquote>\r\n<p>I use moq when i want to mock something. You might want to have a look at the <a href=\"http://efpatterns.codeplex.com/SourceControl/changeset/view/daaed780ede1#Main%2fEntityFramework.Patterns.Tests%2fArchivableRepositoryTests.cs\">\r\ntests project</a> that is shipped with Efpatterns.</p>\r\n<hr>\r\n<blockquote style=\"border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em\">\r\n<strong>cbordeman wrote:</strong><br>\r\n<p>Can you explain this a little better.</p>\r\n</blockquote>\r\n<p>What exactly is not understandable? <span id=\"result_box\" lang=\"en\"><span>I</span>\r\n<span>am ready to</span> <span>improve</span><span>,</span> <span>but</span> <span>\r\nI need</span> <span>to know</span> <span>what...</span></span></p>\r\n<hr>\r\n<blockquote style=\"border:solid .1em #ccc; font-style:italic; margin:.25em 1em 0 1em; padding:0 .25em 0 .25em\">\r\n<strong>cbordeman wrote:</strong><br>\r\n<p>That is not testable.</p>\r\n</blockquote>\r\n<p>What makes you think repositories are not testable? once again please browse the tests project.</p>\r\n<p>&nbsp;</p>\r\n<p><span lang=\"en\"><span>As a side note </span></span><span id=\"result_box\" lang=\"en\"><span>try to be</span>\r\n<span>a little</span> <span>more moderate in</span> <span>your words</span> <span>\r\nespecially when</span> <span>you ask</span> <span>for help.</span></span></p>\r\n<p><span lang=\"en\"><span>Anyway, i hope this will help you; and that you'll enjoy using EFPatterns.<br>\r\n</span></span></p>\r\n",
+    "PostedDate": "2012-05-30T13:45:34.253-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "843669",
+    "ThreadId": "270042",
+    "Html": "<p>Thanks Fab for the reply. &nbsp;I did not download the full source before. &nbsp;I really like this package and I want to use it moving forward. &nbsp;It is the most robust implementation of these patterns I've seen. &nbsp;Good work!</p>\r\n<p>Looking at your tests, you're not mocking the derived DbContext (Context). &nbsp;Instead, you're simply creating an instance of Context, pointing it to a (localdb) server. &nbsp;It appears that, to use EF.Patterns, DbContextAdapter is always neccessary, and its constructor can only take a real DbContext instance.</p>\r\n<p>So the design seems to have a hard dependency to EF that can't be removed. &nbsp;Is this correct? &nbsp;I don't think it's a deal breaker; the use of (localdb) is pretty neat.</p>\r\n<p>If you want to improve something, add a sample explaining how to test.</p>\r\n<p>Again, fantastic work.</p>\r\n<p>Does this work with EF5 pre-release?</p>",
+    "PostedDate": "2012-06-01T12:47:59.437-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "843916",
+    "ThreadId": "270042",
+    "Html": "<p><span id=\"result_box\" class=\"short_text\" lang=\"en\"><span class=\"hps\">Thank you</span> <span class=\"hps\">for the compliments</span><span> cbordeman.</span></span></p>\r\n<p>You're totally right this project aims to implements some patterns and use them with Entity Framework, and only with it. So yes there is a strong dependency to EF.</p>\r\n<p>Speaking of EF5 pre-release, i have to be honest, lately i'm spending all my free time on another pet project, thus i've not tried to port/test EFPatterns with this version of Entity Framework.</p>",
+    "PostedDate": "2012-06-02T14:30:09.73-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "843955",
+    "ThreadId": "270042",
+    "Html": "\r\n<div dir=\"ltr\">\r\n<div style=\"font-family:'Calibri'; color:#000000; font-size:12pt\">\r\n<div>That’s the name of the project after all. ;)</div>\r\n<div></div>\r\n<div>Did you see the discussion I opened asking about how to Include a member on the query methods like GetAll() that is TWO levels deep?</div>\r\n<div style=\"font-style:normal; display:inline; font-family:'Calibri'; color:#000000; font-size:small; font-weight:normal; text-decoration:none\">\r\n<div style=\"font:10pt tahoma\">\r\n<div><font size=\"3\" face=\"Calibri\"></font></div>\r\n<div><font size=\"3\" face=\"Calibri\">So far in my limited testing just with the default repository, I’m not seeing any problems with EF5.</font></div>\r\n<div><font size=\"3\" face=\"Calibri\"></font></div>\r\n<div><font size=\"3\" face=\"Calibri\">I’d really like to see a bit of documentation on the usage of the other repository types.</font></div>\r\n<div><font size=\"3\" face=\"Calibri\"></font></div>\r\n<div><font size=\"3\" face=\"Calibri\">Thanks again Fab!</font></div>\r\n<div><font size=\"3\" face=\"Calibri\"></font></div>\r\n<div style=\"background:#f5f5f5\">\r\n<div style=\"\"><b>From:</b> [email removed] </div>\r\n<div><b>Sent:</b> Saturday, June 02, 2012 4:30 PM</div>\r\n<div><b>To:</b> [email removed] </div>\r\n<div><b>Subject:</b> Re: Need some samples [EFPatterns:270042]</div>\r\n</div>\r\n</div>\r\n<div></div>\r\n</div>\r\n<div style=\"font-style:normal; display:inline; font-family:'Calibri'; color:#000000; font-size:small; font-weight:normal; text-decoration:none\">\r\n<p>From: Fab_Michellonet</p>\r\n<div id=\"ThreadNotificationPostBody\">\r\n<p><span id=\"result_box\" lang=\"en\"><span>Thank you</span> <span>for the compliments</span><span> cbordeman.</span></span></p>\r\n<p>You're totally right this project aims to implements some patterns and use them with Entity Framework, and only with it. So yes there is a strong dependency to EF.</p>\r\n<p>Speaking of EF5 pre-release, i have to be honest, lately i'm spending all my free time on another pet project, thus i've not tried to port/test EFPatterns with this version of Entity Framework.</p>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n",
+    "PostedDate": "2012-06-02T20:07:49.003-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "844120",
+    "ThreadId": "270042",
+    "Html": "<p>Yes, I've wrote a first quick answer on the other thread.</p>\r\n<p>Glad to hear that you've tried EFPatterns with EF 5 and that it seems to work.</p>\r\n<p>Concerning the docs, for sure this an area of the project that need to be improved.</p>",
+    "PostedDate": "2012-06-03T14:32:42.857-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

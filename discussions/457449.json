@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "1094540",
+    "ThreadId": "457449",
+    "Html": "Could you update nuget package. I see there are difrences (like UnitOfWork now implement IDisposable, which was lacking before, what force me to implement it myself), but both your library and Nuget package has still same version: 0.7.<br />\n",
+    "PostedDate": "2013-09-19T09:29:28.813-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "1125903",
+    "ThreadId": "457449",
+    "Html": "EntityFramework.Patterns has been updated to support EF 6.<br />\n",
+    "PostedDate": "2013-11-18T01:18:21.89-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

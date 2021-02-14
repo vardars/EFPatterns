@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "895049",
+    "ThreadId": "390120",
+    "Html": "\r\n<p>Hi all,</p>\r\n<p>Suppose i have a code that retrieve users with some logic, i use it in front and back office.</p>\r\n<pre>for example : userRepo.Find(u =&gt; u.id == id &amp;&amp; u.status == status) ;</pre>\r\n<pre>Is it possible to centralize this code somewhere ? </pre>\r\n<pre>so the code will be like this userRepo.Find(userLambda);</pre>\r\n<p>I am new with lambda expressions so i don&quot;t know if this is possible or not</p>\r\n<p>&nbsp;</p>\r\n<p>Thanks for help</p>\r\n",
+    "PostedDate": "2012-08-03T02:06:44.6-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "901369",
+    "ThreadId": "390120",
+    "Html": "\r\n<p>Hi riadhgomri,</p>\r\n<p>yes, you can store a lambda like any other variable :</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>Expression&lt;Func&lt;User, <span style=\"color:blue\">bool</span>&gt;&gt; _myPredicate = u =&gt; u.id == id &amp;&amp; u.status == status;\n</pre>\r\n</div>\r\n<p>and then use it like that :</p>\r\n<div style=\"color:black; background-color:white\">\r\n<pre>userRepo.Find(_myPredicate);\n</pre>\r\n</div>\r\n<p>I hope this will help you.</p>\r\n",
+    "PostedDate": "2012-08-19T15:01:26.197-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

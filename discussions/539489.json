@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "1224469",
+    "ThreadId": "539489",
+    "Html": "If i use the cacherepository then the cache will never be invalidated. How can i invalidate the cache when e insert, delete or update a entity?<br />\n",
+    "PostedDate": "2014-03-19T08:54:39.537-07:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]

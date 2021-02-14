@@ -1,0 +1,58 @@
+[
+  {
+    "Id": "711131",
+    "ThreadId": "282699",
+    "Html": "\r\n<p>Hi,</p>\r\n<p>Are there any available samples I could have a look how do you use AuditableRepository and how does it ties together with generic repository when you update or insert a new entity?</p>\r\n<p>Many Thanks.</p>\r\n",
+    "PostedDate": "2011-12-12T14:38:49.95-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "711149",
+    "ThreadId": "282699",
+    "Html": "<p>Hi madness2K4,</p>\r\n<p>You might want to decorate your generic repository with the  AuditableRepository when you work with entities that implements  IAuditable interface.</p>\r\n<p>To decorate the repository you can use this syntax :</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">using</span> (EfContext ctx = <span style=\"color: blue;\">new</span> EfContext())\r\n{\r\n       DbContextAdapter adpt = <span style=\"color: blue;\">new</span> DbContextAdapter(ctx);\r\n       IRepository&lt;WorkBench&gt; repo =\r\n           <span style=\"color: blue;\">new</span> AuditableRepository&lt;WorkBench&gt;(\r\n                <span style=\"color: blue;\">new</span> Repository&lt;WorkBench&gt;(adpt)\r\n           );\r\n\r\n        IEnumerable&lt;WorkBench&gt; a = repo.GetAll();\r\n}\r\n</pre>\r\n</div>\r\n<p>The particularity of the AuditableRepository is that when it detect that the entity implements IAuditable, it will :</p>\r\n<ol>\r\n<li>Set Created and CreatedBy properties of the entity when inserting a new item.</li>\r\n<li>Set Updated and UpdatedBy properties of the entity when updating an existing item.</li>\r\n</ol>\r\n<p>&nbsp;</p>\r\n<p>Note that if you mark your entity with the Auditable attribute :</p>\r\n<div style=\"color: black; background-color: white;\">\r\n<pre><span style=\"color: blue;\">&nbsp;</span>\r\n[Auditable]\r\n<span style=\"color: blue;\">public</span> <span style=\"color: blue;\">class</span> WorkBench\r\n{\r\n    <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">int</span> Id { <span style=\"color: blue;\">get</span>; <span style=\"color: blue;\">set</span>; }\r\n    <span style=\"color: blue;\">public</span> <span style=\"color: blue;\">string</span> Name { <span style=\"color: blue;\">get</span>; <span style=\"color: blue;\">set</span>; }\r\n}<br /><br />the IAuditable interface will be automatically implemented at compile time thanks to the AOP engine.<br /><br />I hope this will help you getting started with repository decorators.<br /></pre>\r\n</div>",
+    "PostedDate": "2011-12-12T15:17:34.583-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "711344",
+    "ThreadId": "282699",
+    "Html": "<p>Hi <span class=\"UserProfileLink\">Fab_Michellonet</span>,</p>\r\n<p>Thanks for replying, one other thing in the database table WorkBench would it have Created, CreatedBy, Updated and UpdatedBy columns?</p>\r\n<p>Thanks.</p>",
+    "PostedDate": "2011-12-13T03:03:22.243-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "711490",
+    "ThreadId": "282699",
+    "Html": "<p><span id=\"result_box\" lang=\"en\"><span class=\"hps\">Since</span> <span class=\"hps\">the entity</span> <span class=\"hps\">implements the interface</span> <span class=\"hps\">IAuditable</span> <span class=\"hps\">(manually or automatically</span> <span class=\"hps\">through</span> <span class=\"hps\">the attribute)</span><span>, the table</span> <span class=\"hps\">will be materialized</span> <span class=\"hps\">with the columns</span> <span class=\"hps\">Created</span><span>,</span> <span class=\"hps\">CreatedBy</span><span>,</span> <span class=\"hps\">Updated</span> <span class=\"hps\">and</span> <span class=\"hps\">UpdatedBy</span><span>.</span></span></p>",
+    "PostedDate": "2011-12-13T08:10:24.05-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "711692",
+    "ThreadId": "282699",
+    "Html": "<p>When you said \"the table will be materialized with the columns\" you're using code first approach?</p>\r\n<p>If so, from database first approach would I need those columns in the table already then generate my model and then add Auditable attribute to my POCO class?</p>\r\n<p>Would that work or I would need to remove Created, CreatedBy, Updated and UpdatedBy on my POCO and let the Auditable attribute implement it?</p>",
+    "PostedDate": "2011-12-13T12:54:51.343-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "711735",
+    "ThreadId": "282699",
+    "Html": "Yes, I assumed (wrongly) that you were using Code First.  Now, if you are using Database First it should have to : - Add the columns Created, CreatedBy, Updated and UpdatedBy in table Workbench - Generate the model - Add the&nbsp;interface&nbsp;IAuditable  on your POCO. (Since Created, CreatedBy, Updated and UpdatedBy properties already exist in the model, you shouldn't have to implement anything) You should be able to successfully use AuditableRepository<br />\n",
+    "PostedDate": "2011-12-13T13:38:03.617-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  },
+  {
+    "Id": "993246",
+    "ThreadId": "282699",
+    "Html": "\r\n<p>How would you use the decorator for the AuditableRepository when creating a composition root using Unity?</p>\r\n<p>AuditableRepository takes an IRepository, in other to proxy it, but if I need to resove IRepository to an AuditableRepository, how is that setup in the IoC container?</p>\r\n<p>If I don't set this up, I get an exception from SQL about datetime2 data type not matching DateTime.</p>\r\n",
+    "PostedDate": "2013-01-28T12:27:13.123-08:00",
+    "UserRole": null,
+    "MarkedAsAnswerDate": null
+  }
+]
